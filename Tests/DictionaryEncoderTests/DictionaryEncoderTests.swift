@@ -8,8 +8,8 @@ import Foundation
 import XCTest
 @testable import DictionaryEncoder
 
-class DictionaryDecoderTests: XCTestCase {
-    
+class DictionaryEncoderTests: XCTestCase {
+
     func assertEqual(_ e1: Any, _ e2: Any) {
         if let number1 = e1 as? NSNumber, let number2 = e2 as? NSNumber {
             XCTAssertEqual(number1, number2)
@@ -26,14 +26,14 @@ class DictionaryDecoderTests: XCTestCase {
         }
 
     }
-    
+
     func assertArrayEqual(_ a1: [Any], _ a2: [Any]) {
         XCTAssertEqual(a1.count, a2.count)
         for i in 0..<a1.count {
             assertEqual(a1[i], a2[i])
         }
     }
-    
+
     func assertDictionaryEqual(_ d1: [String:Any], _ d2: [String:Any]) {
         XCTAssertEqual(d1.count, d2.count)
 
@@ -45,7 +45,7 @@ class DictionaryDecoderTests: XCTestCase {
             }
         }
     }
-    
+
     /// helper test function to use throughout all the decode/encode tests
     func testDecodeEncode<T : Codable>(type: T.Type, dictionary: [String:Any]) {
         do {
@@ -58,7 +58,7 @@ class DictionaryDecoderTests: XCTestCase {
             XCTFail(error.localizedDescription)
         }
     }
-    
+
     func testSimpleStructureDecodeEncode() {
         struct Test : Codable {
             let a : Int
@@ -67,7 +67,7 @@ class DictionaryDecoderTests: XCTestCase {
         let dictionary: [String:Any] = ["a":4, "b":"Hello"]
         testDecodeEncode(type: Test.self, dictionary: dictionary)
     }
-    
+
     func testContainingStructureDecodeEncode() {
         struct Test2 : Codable {
             let a : Int
@@ -79,9 +79,9 @@ class DictionaryDecoderTests: XCTestCase {
         let dictionary: [String:Any] = ["t": ["a":4, "b":"Hello"]]
         testDecodeEncode(type: Test.self, dictionary: dictionary)
     }
-    
 
-    static var allTests : [(String, (DictionaryDecoderTests) -> () throws -> Void)] {
+
+    static var allTests : [(String, (DictionaryEncoderTests) -> () throws -> Void)] {
         return [
             ("testSimpleStructureDecodeEncode", testSimpleStructureDecodeEncode),
             ("testContainingStructureDecodeEncode", testContainingStructureDecodeEncode)
